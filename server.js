@@ -5,7 +5,8 @@ bodyParser = require('body-parser'),
 MongoClient = require('mongodb').MongoClient,
 assert = require('assert'),
 url = 'mongodb://localhost:27017/myproject',
-app = express();
+app = express(),
+port = 3000;
 
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
@@ -39,6 +40,6 @@ app.post('/comments.json', function(req, res) {
   });
 });
 
-app.listen(3000);
+app.listen(port);
 
-console.log('Server started: http://localhost:3000/');
+console.log('Server started: http://localhost:' + port);

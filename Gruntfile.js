@@ -2,11 +2,21 @@ module.exports = function(grunt) {
 	
 	var distPaths = {
 		dist: 'dist',
-		less: 'dist/styles'
+		less: 'dist/styles',
+		scripts: 'dist/scripts'
 	},
 	devPaths = {
-		less: 'src/styles'
-	};
+		less: 'src/styles',
+		scripts: 'src/scripts'
+	},
+	nodePath = 'node_modules/',
+	libPaths = [
+		nodePath + 'react/dist/react.js',
+		nodePath + 'react/dist/JSXTransformer.j',
+		nodePath + 'showdown/compressed/Showdown.js',
+		nodePath + 'jquery/dist/jquery.js',
+		devPaths.scripts + '/main.js'
+	];
 	
 	// Project configuration.
 	grunt.initConfig({
@@ -18,21 +28,27 @@ module.exports = function(grunt) {
 				]
 			}
 		},
+		concat: {
+			main: {
+				src: libPaths,
+				dest: 'dist/scripts/main.js',
+			},
+		},
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			build: {
-				src: 'src/<%= pkg.name %>.js',
+				src: [
+					'src/<%= pkg.name %>.js'
+				],
 				dest: 'build/<%= pkg.name %>.min.js'
 			}
 		},
 		less: {
 			development: {},
 			production: {
-				options: {
-					
-				},
+				options: {},
 				files: {
 					'dist/styles/main.css': devPaths.less + '/main.less'
 				}
@@ -44,7 +60,6 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: 'src/',
 					src: [
-						'scripts/**',
 						'views/**',
 						'index.html',
 					],
@@ -61,7 +76,7 @@ module.exports = function(grunt) {
 					'src/views/*.hbs',
 					'src/*.html'
 				],
-				tasks: ['default'],
+				tasks: ['dev'],
 				options: {
 					spawn: false,
 				},
@@ -69,19 +84,23 @@ module.exports = function(grunt) {
 		}
 	});
 	
-	// Load the plugin that provides the "uglify" task.
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	
-	// Default task(s).
 	grunt.registerTask('default', [
 		'clean',
-		'uglify',
+		'concat',
 		'less',
 		'copy'
 	]);
 	
+	grunt.registerTask('dev', [
+		'clean',
+		'less',
+		'copy'
+	]);
 };
