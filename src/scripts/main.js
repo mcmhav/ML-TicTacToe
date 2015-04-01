@@ -109,7 +109,18 @@ var CommentForm = React.createClass({
   }
 });
 
+var GameBord = React.createClass({
+  render: function() {
+    return (
+      <div className="GameBord">
+      iuhsadfoi
+      </div>
+    );
+  }
+});
+
 React.render(
   <CommentBox url="comments.json" pollInterval={2000} />,
-  document.getElementById('content')
+  document.getElementById('content'),
+  <GameBord pollInterval={2000}/>
 );
