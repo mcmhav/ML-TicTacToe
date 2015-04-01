@@ -13,9 +13,8 @@ module.exports = function(grunt) {
 	libPaths = [
 		nodePath + 'react/dist/react.js',
 		nodePath + 'react/dist/JSXTransformer.j',
-		nodePath + 'showdown/compressed/Showdown.js',
 		nodePath + 'jquery/dist/jquery.js',
-		devPaths.scripts + '/main.js'
+		nodePath + 'showdown/src/showdown.js'
 	];
 	
 	// Project configuration.
@@ -30,9 +29,13 @@ module.exports = function(grunt) {
 		},
 		concat: {
 			main: {
-				src: libPaths,
+				src: devPaths.scripts + '/main.js',
 				dest: 'dist/scripts/main.js',
 			},
+			lib: {
+				src: libPaths,
+				dest: 'dist/scripts/libs.js',
+			}
 		},
 		uglify: {
 			options: {

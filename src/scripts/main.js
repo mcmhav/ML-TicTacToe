@@ -1,5 +1,7 @@
 var converter = new Showdown.converter();
 
+console.log('adsas');
+
 var Comment = React.createClass({
   render: function() {
     var rawMarkup = converter.makeHtml(this.props.children.toString());
