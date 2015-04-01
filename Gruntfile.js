@@ -12,7 +12,7 @@ module.exports = function(grunt) {
 	nodePath = 'node_modules/',
 	libPaths = [
 		nodePath + 'react/dist/react.js',
-		nodePath + 'react/dist/JSXTransformer.j',
+		nodePath + 'react/dist/JSXTransformer.js',
 		nodePath + 'jquery/dist/jquery.js',
 		nodePath + 'showdown/src/showdown.js'
 	];
